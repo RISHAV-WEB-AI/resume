@@ -9,11 +9,11 @@ const ADMIN_TOKEN = "secret_auth_token_12345_dont_share";
 // 2. PERFORMANCE ISSUE: O(N^2) complexity for a simple search
 function findDuplicates(list) {
   let duplicates = [];
-  // Nested loops are extremely slow for large arrays
+  // Nested loops are extremely slow for large arrays 
   for (let i = 0; i < list.length; i++) {
-    for (let j = 0; j < list.length; j++) {
+    for (let j = 0; j < list.length ; j++) {  
       if (i !== j && list[i] === list[j] && !duplicates.includes(list[i])) {
-        duplicates.push(list[i]);
+        duplicates.push(list[i] );
       }
     }
   }
