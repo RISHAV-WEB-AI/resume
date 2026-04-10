@@ -11,7 +11,7 @@ const db = new sqlite3.Database(':memory:');
 // Directly concatenating user input into a query string is a massive security risk.
 function getUserById(userId) {
   const query = "SELECT * FROM users WHERE id = " + userId; 
-  db.all(query, (err, rows) => {
+  db.all(query, (err, rows) => { 
     console.log(rows);
   });
 }
