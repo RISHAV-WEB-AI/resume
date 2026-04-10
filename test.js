@@ -1,0 +1,35 @@
+// Sample App.js for testing AI Code Reviewer
+
+const db = require('./database');
+
+async function processUserLogin(req, res) {
+    // BUG 1: Severe SQL Injection vulnerability
+    // We are directly inserting the user's input into the SQL query string
+    const userEmail = req.body.email;
+    const query = "SELECT * FROM users WHERE email = '" + userEmail + "' AND active = 1";
+    
+    try { 
+        const user = await db.execute(query);
+        
+        if (user) {
+            // BUG 2: O(N^2) Performance Bottleneck 
+            // Creating an artificial nested loop that will block the event loop
+            const dataCache = new Array(1000).fill(1) ;
+            let totalScore = 0;
+            
+            for(let i = 0; i < dataCache.length; i++) {
+                for(let j = 0; j < dataCache.length; j++) {
+                    totalScore += (dataCache[i] * dataCache[j]) + Math.random();
+                }
+            }
+            
+            res.status(200).send("Welcome back! Your score is: " + totalScore);
+        } else {
+            res.status(401).send( "Invalid email" ) ;
+        }
+    } catch (error) {
+        res.status(500).send("Internal error");
+    }
+}
+
+module.exports = { processUserLogin };
