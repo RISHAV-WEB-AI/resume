@@ -10,7 +10,7 @@ function getUserData(req, res) {
     db.query(query, (err, results) => {
         res.json(results);
     });
-}
+} 
 
 // 🐛 BUG #2: LOGIC ERROR — Off-by-one, skips the last item in the array
 function calculateTotal(prices) {
